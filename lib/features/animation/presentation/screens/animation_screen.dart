@@ -9,6 +9,32 @@ class TweenAnimationScreen extends StatefulWidget {
 
 class _TweenAnimationScreenState extends State<TweenAnimationScreen> {
   @override
+  void initState() {
+    debugPrint('Tween Animation Init State');
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    debugPrint('Tween Animation Did Change Dependencies');
+    super.didChangeDependencies();
+  }
+
+  @override
+  void didUpdateWidget(covariant TweenAnimationScreen oldWidget) {
+    debugPrint('Tween Animation Did Update Widget');
+
+    super.didUpdateWidget(oldWidget);
+  }
+
+  String text = 'Flutter Tween Animation';
+  void textUpdate() {
+    setState(() {
+      text = 'Flutter Tween Animation Updated';
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +46,7 @@ class _TweenAnimationScreenState extends State<TweenAnimationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TweenAnimationBuilder(
-                curve: Curves.bounceOut,
+                curve: Curves.linearToEaseOut,
                 onEnd: () {
                   debugPrint('Tween Animation Ended');
                 },
@@ -30,25 +56,41 @@ class _TweenAnimationScreenState extends State<TweenAnimationScreen> {
                   return Column(
                     children: [
                       Icon(
-                        Icons.favorite,
+                        Icons.star,
                         size: size,
                         color: Colors.red,
                       ),
-                      Text(
-                        'Flutter Tween Animation',
-                        style: TextStyle(
-                          fontSize: size / 2,
-                          color: Colors.blue,
-                        ),
-                      )
                     ],
                   );
                 },
               ),
+              GestureDetector(
+                onTap: () {
+                  textUpdate();
+                },
+                child: Text(
+                  text,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Colors.blue,
+                  ),
+                ),
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void deactivate() {
+    debugPrint('Tween Animation Deactivate');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
